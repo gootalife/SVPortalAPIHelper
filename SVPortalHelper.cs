@@ -13,22 +13,22 @@ namespace SVPrayingAssistant_Windows {
         private const string CORS_API_URL = @"https://cors-anywhere.herokuapp.com/";
 
         private SVPortalHelper() {}
-        
+
         /// <summary>
         /// デッキコードからデッキを取得
         /// await FetchDeck(code);
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static async Task<Deck> FetchDeckFromDeckCodeAsync(string code) {
             try {
                 var json = await FetchDeckHashAsync(code);
                 var hash = json["data"]["hash"].ToString();
                 var deck = await FetchDeckDataAsync(hash);
                 return deck;
-            } catch (Exception e) {
-                MessageBox.Show(e.Message);
-                return null;
+            } catch {
+                throw;
             }
         }
 
@@ -37,7 +37,7 @@ namespace SVPrayingAssistant_Windows {
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public static async Task<JObject> FetchDeckHashAsync(string code) {
+        private static async Task<JObject> FetchDeckHashAsync(string code) {
             return await RequestOverCORSAsync(@"https://shadowverse-portal.com/api/v1/deck/import?format=json&deck_code=" + code);
         }
 
@@ -46,7 +46,7 @@ namespace SVPrayingAssistant_Windows {
         /// </summary>
         /// <param name="hash"></param>
         /// <returns></returns>
-        public static async Task<Deck> FetchDeckDataAsync(string hash) {
+        private static async Task<Deck> FetchDeckDataAsync(string hash) {
             var json = await RequestOverCORSAsync(@"https://shadowverse-portal.com/api/v1/deck?format=json&lang=ja&hash=" + hash);
             var cards = json["data"]["deck"]["cards"].Select(card => {
                 var cardInfo = new Card(card["card_id"].ToObject<int>(),
@@ -69,7 +69,7 @@ namespace SVPrayingAssistant_Windows {
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static async Task<JObject> RequestOverCORSAsync(string url) {
+        private static async Task<JObject> RequestOverCORSAsync(string url) {
             url = CORS_API_URL + url;
             JObject json;
             using (var client = new HttpClient()) {
