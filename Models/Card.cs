@@ -1,4 +1,4 @@
-﻿namespace SVPortalAPIHelper.Entity {
+﻿namespace SVPortalAPIHelper.Models {
     public class Card {
         public int CardId { get; }
         public string CardName { get; }

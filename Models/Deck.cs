@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 
-namespace SVPortalAPIHelper.Entity {
+namespace SVPortalAPIHelper.Models {
     public class Deck {
         public Deck(int clan, List<Card> cards) : this() {
             Clan = clan;

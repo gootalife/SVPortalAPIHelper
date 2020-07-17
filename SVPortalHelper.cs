@@ -1,15 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
-using SVPortalAPIHelper.Entity;
+using SVPortalAPIHelper.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Windows;
 
-namespace SVPortalAPI.Helper {
+namespace SVPortalAPI {
     public class SVPortalHelper {
         private const string CORS_API_URL = @"https://cors-anywhere.herokuapp.com/";
 
